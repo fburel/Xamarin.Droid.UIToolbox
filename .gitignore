@@ -4,3 +4,6 @@
 packages
 Toolbox.Droid/bin
 Toolbox.Droid/obj
+# Build related
+tools/**
+!tools/packages.config
