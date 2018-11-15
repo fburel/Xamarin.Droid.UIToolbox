@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="NavigationDrawerWidth">304dp</dimen>
+    <dimen name="NavigationDrawerHeaderHeight">170dp</dimen>
+</resources>

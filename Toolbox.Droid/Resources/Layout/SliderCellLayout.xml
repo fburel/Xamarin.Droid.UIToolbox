@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:padding="11dp"
+              android:id="@+id/cell">
+
+    <LinearLayout android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="200dp"
+                  android:padding="11dp">
+
+        <TextView
+                android:id="@+id/hintTextView"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:textSize="18sp"
+                android:textColor="?android:textColorPrimary"/>
+
+        <TextView
+                android:id="@+id/valueTextView"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="18sp"
+                android:text="%some value%"
+                android:textColor="?android:colorAccent"
+        />
+        
+    </LinearLayout>
+
+    <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekBar"
+            android:min="0"
+            android:max="100"
+            android:progress="0"
+            android:indeterminate="false" />
+    
+
+</LinearLayout>

@@ -1,0 +1,6 @@
+.DS_Store
+.idea
+.vs
+packages
+Toolbox.Droid/bin
+Toolbox.Droid/obj
