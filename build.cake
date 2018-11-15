@@ -35,9 +35,18 @@ Task("Build")
     .IsDependentOn("Restore-NuGet-Packages")
     .Does(() =>
 {
-    Use XBuild
+    if(IsRunningOnWindows())
+    {
+      // Use MSBuild
+      MSBuild(SolutionFile, settings =>
+        settings.SetConfiguration(configuration));
+    }
+    else
+    {
+      // Use XBuild
       XBuild(SolutionFile, settings =>
         settings.SetConfiguration(configuration));
+    }
 });
 
 //////////////////////////////////////////////////////////////////////
