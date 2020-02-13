@@ -16,20 +16,20 @@ namespace Toolbox.Droid.List
 
         public readonly int ViewType;
 
-        public ViewHolder(View cell, CallBack callBack = null, int viewType = 1)
+        public ViewHolder(View cell, CallBack callBack = null, int viewType = 1, bool registerForClick = true)
         {
             _cell = cell;
             _callback = callBack;
-            cell.Click += OnClick;
+            if (registerForClick) cell.Click += OnClick;
             ViewType = viewType;
         }
+
+        public int Position { get; set; }
 
         public T getView<T>(string identifier) where T : View
         {
             return Views[identifier] as T;
         }
-        
-        public int Position { get; set; }
 
         public void RegisterOnClickListener(string viewKey, CallBack callback)
         {

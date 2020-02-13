@@ -1,21 +1,18 @@
 ﻿using System;
-using System.Net.Mime;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
 
 namespace Toolbox.Droid.Form.Cells
 {
-    public class ButtonCell : Cell
+    public sealed class ButtonCell : Cell
     {
-        
-        private string ButtonTitle { get; set; }
-
-
         public ButtonCell(int tag, FormFragment form, string buttonTile) : base(tag, form)
         {
             ButtonTitle = buttonTile;
         }
+
+        private string ButtonTitle { get; }
 
 
         public override View GetView(Context context)
@@ -27,7 +24,7 @@ namespace Toolbox.Droid.Form.Cells
             btn.Click += OnClick;
 
             btn.Text = ButtonTitle;
-            
+
             return cell;
         }
 
@@ -35,12 +32,10 @@ namespace Toolbox.Droid.Form.Cells
         {
             NotifyChanged(true);
         }
-        
-        public virtual View OnCreateLayout(Context context)
+
+        public View OnCreateLayout(Context context)
         {
             return LayoutInflater.From(context).Inflate(Resource.Layout.ButtonCell, null);
         }
-
-        
     }
 }

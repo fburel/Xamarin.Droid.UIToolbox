@@ -6,20 +6,26 @@ namespace Toolbox.Droid.Color
 {
     public class ColorStateListBuilder
     {
-        private readonly IList<int> Colors = new List<int>();
-        private readonly IList<int[]> States = new List<int[]>();
-
-
+        private readonly IList<int> _colors = new List<int>();
+        private readonly IList<int[]> _states = new List<int[]>();
+        
+        
+        /// <summary>
+        ///     Match an Android.Resource.Attribute.State to a Resource.Color
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="color"></param>
+        /// <returns></returns>
         public ColorStateListBuilder AddColorForState(int state, int color)
         {
-            Colors.Add(color);
-            States.Add(new[] {state});
+            _colors.Add(color);
+            _states.Add(new[] {state});
             return this;
         }
 
         public ColorStateList Build()
         {
-            return new ColorStateList(States.ToArray(), Colors.ToArray());
+            return new ColorStateList(_states.ToArray(), _colors.ToArray());
         }
     }
 }

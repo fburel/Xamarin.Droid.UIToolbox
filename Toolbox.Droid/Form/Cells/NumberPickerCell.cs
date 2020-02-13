@@ -22,12 +22,12 @@ namespace Toolbox.Droid.Form.Cells
 
         protected override Dialog CreateDialog(Context c, int value)
         {
-            var dialog = new NumberPickerDialog(c);
+            var dialog = new NumberPickerDialog(c)
+            {
+                Picker = {MaxValue = Max, MinValue = Min, Value = Value}
+            };
 
 
-            dialog.Picker.MaxValue = Max;
-            dialog.Picker.MinValue = Min;
-            dialog.Picker.Value = Value;
 
             dialog.ValueSelected += (sender, i) =>
             {

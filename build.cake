@@ -1,63 +1,79 @@
-#tool nuget:?package=NUnit.ConsoleRunner&version=3.4.0
-//////////////////////////////////////////////////////////////////////
-// ARGUMENTS
-//////////////////////////////////////////////////////////////////////
+#addin nuget:?package=Cake.Git&version=0.21.0
+#addin nuget:?package=Nuget.Core&version=2.14.0
+
+using NuGet;
 
 var target = Argument("target", "Default");
-var configuration = Argument("configuration", "Release");
-var SolutionFile = "./Toolbox.Droid.sln";
-var projectToBuild = "./Toolbox.Droid/Toolbox.Droid.csproj";
-//////////////////////////////////////////////////////////////////////
-// PREPARATION
-//////////////////////////////////////////////////////////////////////
+var solutionPath = "./Toolbox.Droid.sln";
+var project = "./Toolbox.Droid/Toolbox.Droid.csproj";
+var configuration = "Release";
 
-// Define directories.
 var buildDir = Directory("./Toolbox.Droid/bin") + Directory(configuration);
+var objDir = Directory("./Toolbox.Droid/obj") + Directory(configuration);
 
-//////////////////////////////////////////////////////////////////////
-// TASKS
-//////////////////////////////////////////////////////////////////////
 
 Task("Clean")
-    .Does(() =>
-{
-    CleanDirectory(buildDir);
-});
+    .Does(() => {
+        Information("Cleaning...");
+        if (DirectoryExists(buildDir))
+        {
+            DeleteDirectory(
+                buildDir, 
+                new DeleteDirectorySettings {
+                    Recursive = true,
+                    Force = true
+                }
+            );
+        }
 
-Task("Restore-NuGet-Packages")
+        if (DirectoryExists(objDir))
+        {
+            DeleteDirectory(
+                objDir, 
+                new DeleteDirectorySettings {
+                    Recursive = true,
+                    Force = true
+                }
+            );
+        }
+       
+        DotNetCoreClean(solutionPath);
+    });
+
+Task("Restore")
     .IsDependentOn("Clean")
     .Does(() =>
 {
-    NuGetRestore(SolutionFile);
+    Information("Restoring nugget packages...");
+    DotNetCoreRestore(solutionPath);
 });
 
 Task("Build")
-    .IsDependentOn("Restore-NuGet-Packages")
-    .Does(() =>
-{
-    if(IsRunningOnWindows())
-    {
-      // Use MSBuild
-      MSBuild(SolutionFile, settings =>
-        settings.SetConfiguration(configuration));
-    }
-    else
-    {
-      // Use XBuild
-      XBuild(SolutionFile, settings =>
-        settings.SetConfiguration(configuration));
-    }
-});
+    .IsDependentOn("Restore")
+    .Does(() => {
+        Information("Building...");
+        DotNetCoreBuild(
+            solutionPath,
+            new DotNetCoreBuildSettings 
+            {
+                Configuration = configuration
+            }
+        );
+    });
 
-//////////////////////////////////////////////////////////////////////
-// TASK TARGETS
-//////////////////////////////////////////////////////////////////////
+Task("Package")
+    .IsDependentOn("Build")
+    .Does(() => {
+        Information("Packaging...");
+        var settings = new DotNetCorePackSettings
+        {
+            OutputDirectory = buildDir,
+            NoBuild = true
+        };
+        DotNetCorePack(project, settings);
+    });
 
 Task("Default")
-    .IsDependentOn("Build");
-
-//////////////////////////////////////////////////////////////////////
-// EXECUTION
-//////////////////////////////////////////////////////////////////////
+    .IsDependentOn("Package");
 
 RunTarget(target);

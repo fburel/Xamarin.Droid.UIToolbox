@@ -1,10 +1,9 @@
 ﻿using Android.Content;
+using Android.Support.V7.Widget;
 using Android.Views;
-using Android.Widget;
 
 namespace Toolbox.Droid.Form.Cells
 {
-
     public interface ITextFormatter<T>
     {
         string GetStringValue(T value, Context context);
@@ -15,12 +14,12 @@ namespace Toolbox.Droid.Form.Cells
     /// </summary>
     public abstract class TextValueCell<T> : Cell
     {
-        public readonly string Hint;
-        public Context _context;
+        protected readonly string Hint;
+        private Context _context;
         private T _value;
         public ITextFormatter<T> TextFormatter;
 
-        public TextValueCell(int tag, FormFragment form, string hint, T initialValue) : base(tag, form)
+        protected TextValueCell(int tag, FormFragment form, string hint, T initialValue) : base(tag, form)
         {
             Hint = hint;
             Value = initialValue;
@@ -28,13 +27,16 @@ namespace Toolbox.Droid.Form.Cells
 
         private ViewHolder Holder { get; set; }
 
-        public T Value
+        protected T Value
         {
             get => _value;
             set
             {
                 _value = value;
-                if (Holder != null && _context != null) Holder.ValueLabel.Text = TextFormatter == null ? GetStringValue(_value, _context) : TextFormatter.GetStringValue(_value, _context);
+                if (Holder != null && _context != null)
+                    Holder.ValueLabel.Text = TextFormatter == null
+                        ? GetStringValue(_value, _context)
+                        : TextFormatter.GetStringValue(_value, _context);
             }
         }
 
@@ -47,27 +49,32 @@ namespace Toolbox.Droid.Form.Cells
             var cell = OnCreateLayout(context);
 
             Holder = new ViewHolder(
-                cell.FindViewById<TextView>(Resource.Id.hintTextView),
-                cell.FindViewById<TextView>(Resource.Id.valueTextView)
+                cell.FindViewById<AppCompatTextView>(Resource.Id.hintTextView),
+                cell.FindViewById<AppCompatTextView>(Resource.Id.valueTextView)
             );
 
+            Holder.TextLabel.SetTextColor(AppearanceTextColor);
+            Holder.ValueLabel.SetTextColor(AppearanceAccentColor);
+
             Holder.TextLabel.Text = Hint;
-            Holder.ValueLabel.Text = TextFormatter == null ? GetStringValue(Value, context) : TextFormatter.GetStringValue(Value, context);
+            Holder.ValueLabel.Text = TextFormatter == null
+                ? GetStringValue(Value, context)
+                : TextFormatter.GetStringValue(Value, context);
 
             return cell;
         }
 
-        public virtual View OnCreateLayout(Context context)
+        protected virtual View OnCreateLayout(Context context)
         {
             return LayoutInflater.From(context).Inflate(Resource.Layout.forms_cell_value, null);
         }
 
         private class ViewHolder
         {
-            internal readonly TextView TextLabel;
-            internal readonly TextView ValueLabel;
+            internal readonly AppCompatTextView TextLabel;
+            internal readonly AppCompatTextView ValueLabel;
 
-            internal ViewHolder(TextView textLabel, TextView valueLabel)
+            internal ViewHolder(AppCompatTextView textLabel, AppCompatTextView valueLabel)
             {
                 TextLabel = textLabel;
                 ValueLabel = valueLabel;

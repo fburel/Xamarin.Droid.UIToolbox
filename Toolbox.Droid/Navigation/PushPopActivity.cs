@@ -73,7 +73,7 @@ namespace Toolbox.Droid.Navigation
         public void Push(BaseFragment f, Bundle extra = null)
         {
             f.Arguments = extra;
-            
+
             SupportFragmentManager.BeginTransaction()
                 .SetCustomAnimations(Resource.Animation.PushEntry, Resource.Animation.PushExit)
                 .Replace(Resource.Id.DrawerActivityFragmentLayout, f)

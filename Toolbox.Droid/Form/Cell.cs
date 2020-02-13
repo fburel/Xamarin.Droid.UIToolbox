@@ -6,7 +6,11 @@ namespace Toolbox.Droid.Form
 {
     public abstract class Cell
     {
-        protected readonly Bundle _configuration;
+        public static Android.Graphics.Color AppearanceTextColor = Android.Graphics.Color.White;
+        public static Android.Graphics.Color AppearanceAccentColor = Android.Graphics.Color.Aqua;
+
+
+        private readonly Bundle _configuration;
 
         public readonly int Tag;
 
@@ -15,7 +19,7 @@ namespace Toolbox.Droid.Form
         /// </summary>
         /// <param name="tag">A unique Identifier</param>
         /// <param name="form">The FormFragmentObject that will display the cell</param>
-        public Cell(int tag, FormFragment form)
+        protected Cell(int tag, FormFragment form)
         {
             Tag = tag;
             Form = form;

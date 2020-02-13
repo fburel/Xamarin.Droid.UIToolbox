@@ -20,7 +20,7 @@ namespace Toolbox.Droid.Form.Cells
             return "tot";
         }
 
-        public override View OnCreateLayout(Context context)
+        protected override View OnCreateLayout(Context context)
         {
             var v = LayoutInflater.From(context).Inflate(Resource.Layout.SliderCellLayout, null);
 

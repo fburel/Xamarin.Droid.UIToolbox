@@ -21,9 +21,10 @@ namespace Toolbox.Droid.Form.Cells
             return $"{value.Hours:00}:{value.Minutes:00}";
         }
 
+
         protected override Dialog CreateDialog(Context c, TimeComponent value)
         {
-            var dialog = new TimePickerDialog(c, OnValueChanged, value.Hours, value.Minutes, true);
+            Dialog dialog = new TimePickerDialog(c, OnValueChanged, value.Hours, value.Minutes, true);
             return dialog;
         }
 

@@ -9,7 +9,7 @@ namespace Toolbox.Droid.List
     {
         private readonly DataProvider Provider;
 
-        private readonly IList<int> SectionHeadersPositions;
+        private readonly IList<int> SectionHeadersPositions = new List<int>();
 
         public SmartGroupedListAdapter(DataProvider provider)
         {
@@ -82,7 +82,7 @@ namespace Toolbox.Droid.List
                 var section = FindSectionIdx(position);
                 var sectionHeaderPosition = SectionHeadersPositions[section];
                 return sectionHeaderPosition == position
-                    ? default(T)
+                    ? default
                     : Provider.Element(section, position - sectionHeaderPosition - 1);
             }
         }
@@ -116,6 +116,7 @@ namespace Toolbox.Droid.List
             {
                 cell = LayoutInflater.From(parent.Context).Inflate(Provider.ItemCell, null);
 
+
                 var vh = new ViewHolder(cell, this);
                 Provider.RegisterCell(cell, vh);
                 cell.Tag = vh;
@@ -136,7 +137,8 @@ namespace Toolbox.Droid.List
 
         public virtual View OnCreateHeaderViewCell(Context context)
         {
-            return LayoutInflater.From(context).Inflate(Android.Resource.Layout.SimpleListItem1, null);
+            var view = LayoutInflater.From(context).Inflate(Android.Resource.Layout.SimpleListItem1, null);
+            return view;
         }
 
         public virtual void OnSetSectionHeaderTitle(View cell, string title)

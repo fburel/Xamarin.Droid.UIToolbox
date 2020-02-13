@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Android.App;
 using Java.Lang;
 using Toolbox.Droid.Fragments;
@@ -40,7 +39,6 @@ namespace Toolbox.Droid.Navigation
 
         public static class ModalActivityManager
         {
-
             private static readonly IList<ModalActivity> Activities = new List<ModalActivity>();
 
             public static void RegisterCurrent(ModalActivity activity)

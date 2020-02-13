@@ -12,9 +12,9 @@ namespace Toolbox.Droid.Form
 {
     public abstract class FormFragment : BaseFragment
     {
-        public const int DefaultRowHeight = 80;
-        public const int DefaultSeparatorGap = 4;
-        public const int DefaultSectionHeaderHeight = 44;
+        private const int DefaultRowHeight = 80;
+        private const int DefaultSeparatorGap = 4;
+        private const int DefaultSectionHeaderHeight = 44;
 
         private readonly Dictionary<View, Cell> _cellMap = new Dictionary<View, Cell>();
         private LinearLayout _contentLayout;
@@ -117,13 +117,12 @@ namespace Toolbox.Droid.Form
         {
             _scrollview.RemoveView(_contentLayout);
             _contentLayout = null;
-            _contentLayout = new LinearLayout(Activity) { Orientation = Orientation.Vertical };
+            _contentLayout = new LinearLayout(Activity) {Orientation = Orientation.Vertical};
             _contentLayout.LayoutParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent,
                 ViewGroup.LayoutParams.WrapContent);
             _scrollview.AddView(_contentLayout);
 
             ConfigureForm();
-
         }
 
         protected void SetCellVisibile(int cellTag, bool b)
@@ -132,7 +131,7 @@ namespace Toolbox.Droid.Form
             if (view != null)
                 view.Visibility = b ? ViewStates.Visible : ViewStates.Gone;
         }
-        
+
         private void OnCellClicked(object sender, EventArgs e)
         {
             _focusedCell = _cellMap[sender as View];
@@ -205,7 +204,7 @@ namespace Toolbox.Droid.Form
 
         #region Tools
 
-        private int ToPixel(int dp)
+        protected int ToPixel(int dp)
         {
             return (int) TypedValue.ApplyDimension(ComplexUnitType.Dip, dp, Activity.Resources.DisplayMetrics);
         }

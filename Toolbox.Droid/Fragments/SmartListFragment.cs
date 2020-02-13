@@ -11,9 +11,11 @@ namespace Toolbox.Droid.Fragments
 {
     public abstract class SmartListFragment<T> : BaseFragment, SmartListAdapter<T>.DataProvider
     {
-        private SmartListAdapter<T> adapter;
+        private SmartListAdapter<T> _adapter;
         protected ListView ListView { get; private set; }
         protected SwipeRefreshLayout RefreshLayout { get; private set; }
+
+        protected View EmptyView { get; set; }
 
         protected bool RefreshEnabled
         {
@@ -27,27 +29,37 @@ namespace Toolbox.Droid.Fragments
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            RefreshLayout = new SwipeRefreshLayout(Activity);
-            RefreshLayout.LayoutParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent,
-                ViewGroup.LayoutParams.MatchParent);
+            RefreshLayout = new SwipeRefreshLayout(Activity)
+            {
+                LayoutParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent,
+                    ViewGroup.LayoutParams.MatchParent)
+            };
 
-            ListView = new ListView(Activity);
-            ListView.LayoutParameters =
-                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
+            ListView = new ListView(Activity)
+            {
+                LayoutParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent,
+                    ViewGroup.LayoutParams.MatchParent)
+            };
+
             RefreshLayout.AddView(ListView);
 
-            adapter = new SmartListAdapter<T>(this);
+            _adapter = new SmartListAdapter<T>(this);
 
-            adapter.ItemSelected += OnItemSelected;
+            _adapter.ItemSelected += OnItemSelected;
 
-            ListView.Adapter = adapter;
+            ListView.Adapter = _adapter;
 
             RefreshLayout.Refresh += OnRefresh;
 
             return RefreshLayout;
         }
 
-        protected async Task<bool> ForceRefresh()
+        protected void ReloadData()
+        {
+            Activity.RunOnUiThread(_adapter.NotifyDataSetChanged);
+        }
+
+        protected virtual async Task<bool> ForceRefresh()
         {
             var completion = new TaskCompletionSource<bool>();
             RefreshDataSet(completion);
@@ -55,7 +67,7 @@ namespace Toolbox.Droid.Fragments
             {
                 var unused = await completion.Task;
                 RefreshLayout.Refreshing = false;
-                adapter.NotifyDataSetChanged();
+                _adapter.NotifyDataSetChanged();
                 return true;
             }
             catch

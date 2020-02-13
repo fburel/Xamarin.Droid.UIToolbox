@@ -3,25 +3,22 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using Android.Views;
-using Java.Util;
 
 namespace Toolbox.Droid.List
 {
     public class SmartListAdapter<T> : BaseSmartAdapter<T>
     {
         private readonly DataProvider _provider;
-        private IList<int> _viewTypes;
-        
+
         private IList<T> _data;
+        private IList<int> _viewTypes;
 
         public SmartListAdapter(DataProvider provider)
         {
             _provider = provider;
             _data = provider.Elements;
             if (_data.GetType() == typeof(ObservableCollection<T>))
-            {
                 ((ObservableCollection<T>) _data).CollectionChanged += OnCollectionChanged;
-            }
             _viewTypes = _provider.Elements
                 .Select(x => _provider.GetCellResource(_provider.Elements.IndexOf(x))).Distinct().ToList();
         }
@@ -74,7 +71,7 @@ namespace Toolbox.Droid.List
 
         public override int Count => _data?.Count ?? 0;
 
-        public override int ViewTypeCount => (_viewTypes.Count < 1) ? 1 : _viewTypes.Count;
+        public override int ViewTypeCount => _viewTypes.Count < 1 ? 1 : _viewTypes.Count;
 
         public override int GetItemViewType(int position)
         {
@@ -84,9 +81,9 @@ namespace Toolbox.Droid.List
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             var cell = convertView;
-            
+
             var viewType = _provider.GetCellResource(position);
-           
+
             if (cell == null || (cell.Tag as ViewHolder)?.ViewType != viewType)
             {
                 cell = LayoutInflater.From(parent.Context).Inflate(viewType, null);

@@ -54,22 +54,41 @@ namespace Toolbox.Droid.HUD
             return tm;
         }
 
-        public static Task showSpinner(Context context, string text, Task dismissTask, bool cancelable = false)
+        public static Task<T> showSpinner<T>(Context context, string text, Task<T> dismissTask, bool cancelable = false)
         {
             var dialog = new Dialog(context);
             dialog.Window.SetBackgroundDrawable(new ColorDrawable(Android.Graphics.Color.Transparent));
             dialog.SetContentView(Resource.Layout.HUDLayout);
+
             var frameLayout = dialog.FindViewById<FrameLayout>(Resource.Id.ContentFrameLayout);
+
+
             var textView = dialog.FindViewById<TextView>(Resource.Id.textViewStatus);
             textView.Text = text;
 
             dialog.SetCancelable(cancelable);
-            
+
             //frameLayout.SetBackgroundColor(Color.Aqua);
 
             dialog.Show();
 
-            return dismissTask.ContinueWith(t => { dialog.Dismiss(); });
+            var imageView = new ImageView(context);
+            imageView.SetImageResource(Resource.Drawable.ic_successstatus);
+
+
+            var pg = new ProgressBar(context);
+            pg.Indeterminate = true;
+
+
+            frameLayout.AddView(pg,
+                new ActionMenuView.LayoutParams(ViewGroup.LayoutParams.MatchParent,
+                    ViewGroup.LayoutParams.MatchParent));
+
+            return dismissTask.ContinueWith(t =>
+            {
+                dialog.Dismiss();
+                return t.Result;
+            });
         }
     }
 }

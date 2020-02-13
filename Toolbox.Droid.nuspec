@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<package>
+  <metadata>
+    <id>fr.f10-solutions.Toolbox.Droid</id>
+    <version>1.0.0</version>
+    <title>UI Toolbox for fast prototyping Android Native App</title>
+    <license type="expression">MIT</license>
+    <authors>f10-solutions</authors>
+    <description>Provides a set of xamarin native-android classes to help build application UI</description>
+    <releaseNotes>Hello World!</releaseNotes>
+    <tags>android form navigation fragment adapter</tags>
+  </metadata>
+</package>

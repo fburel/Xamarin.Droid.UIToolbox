@@ -6,23 +6,22 @@
     android:padding="11dp"
     android:id="@+id/cell">
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/hintTextView"
         android:layout_height="wrap_content"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_gravity="center_vertical"
         android:textSize="18sp"
-        android:textColor="?android:textColorPrimary"/>
+        />
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/valueTextView"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_gravity="center_vertical"
         android:textSize="18sp"
         android:text="%some value%"
-        android:textColor="?android:colorAccent"
         />
 
 </LinearLayout>

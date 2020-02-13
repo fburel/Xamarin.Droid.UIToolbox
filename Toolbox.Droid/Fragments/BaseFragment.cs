@@ -1,35 +1,35 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
 using System.Threading.Tasks;
-using Android.OS;
 using Android.Support.V4.App;
+using Android.Support.V4.Content;
 using Android.Views;
 using Java.Lang;
+using Exception = Java.Lang.Exception;
 
 namespace Toolbox.Droid.Fragments
 {
     public class BaseFragment : Fragment
     {
-        
-        protected int MatchParent = ViewGroup.LayoutParams.MatchParent;
+        public static int MatchParent = ViewGroup.LayoutParams.MatchParent;
         protected int WrapContent = ViewGroup.LayoutParams.WrapContent;
-        
-        protected ViewGroup.LayoutParams MakeLayoutParameters (int width, int height)
-        {
-            return new ViewGroup.LayoutParams(width, height);
-        }
-        
+
         private MenuButton RightMenuButton { get; set; }
         protected virtual string Title { get; set; }
 
+        protected ViewGroup.LayoutParams MakeLayoutParameters(int width, int height)
+        {
+            return new ViewGroup.LayoutParams(width, height);
+        }
+
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
         {
-            if (RightMenuButton != null)
-            {
-                menu.Clear();
-                menu.Add(Menu.None, RightMenuButton.Tag, Menu.None, new String(RightMenuButton.Title))
-                    .SetIcon(RightMenuButton.Icon)
-                    .SetShowAsAction(ShowAsAction.Always);
-            }
+            menu.Clear();
+            
+            if (RightMenuButton == null) return;
+            
+            menu.Add((int) Menu.None, RightMenuButton.Tag, (int) Menu.None, (ICharSequence) new Java.Lang.String(RightMenuButton.Title))
+                .SetIcon(RightMenuButton.Icon)
+                .SetShowAsAction(ShowAsAction.Always);
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -38,9 +38,7 @@ namespace Toolbox.Droid.Fragments
             {
                 item.SetEnabled(false);
                 OnRightButtonItemClicked();
-                Task.Delay(25).ContinueWith(t => Activity.RunOnUiThread(()=>{
-                    item.SetEnabled(true);
-                }));
+                Task.Delay(25).ContinueWith(t => Activity.RunOnUiThread(() => { item.SetEnabled(true); }));
                 return true;
             }
 
@@ -51,10 +49,29 @@ namespace Toolbox.Droid.Fragments
         {
         }
 
+        protected void RemoveRightButtonItem()
+        {
+            RightMenuButton = null;
+            try
+            {
+                Activity.InvalidateOptionsMenu();
+            }
+            catch (Exception)
+            {
+            }
+        }
+        
         protected void SetRightButtonItem(string title, int icon)
         {
             HasOptionsMenu = true;
             RightMenuButton = new MenuButton(Resource.Id.RightMenuButton, icon, title);
+            try
+            {
+                Activity.InvalidateOptionsMenu();
+            }
+            catch (Exception)
+            {
+            }
         }
 
 
@@ -68,6 +85,18 @@ namespace Toolbox.Droid.Fragments
         {
             Activity.OnBackPressed();
         }
+
+        protected new string GetString(int resId)
+        {
+            return Activity.GetString(resId);
+        }
+
+        protected Android.Graphics.Color GetColor(int colorRes)
+        {
+            return new Android.Graphics.Color(ContextCompat.GetColor(Activity, colorRes));
+//            return Activity.Resources.GetColor(colorRes);
+        }
+
 
         private class MenuButton
         {

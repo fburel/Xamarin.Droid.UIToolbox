@@ -11,7 +11,7 @@ namespace Toolbox.Droid.Form.Cells
         {
         }
 
-        protected Dialog Dialog { get; private set; }
+        private Dialog Dialog { get; set; }
 
         protected abstract Dialog CreateDialog(Context c, T value);
 

@@ -41,7 +41,7 @@ namespace Toolbox.Droid.Navigation
                 new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));
 
             // prep drawer if needed
-            var navigationView = new Android.Support.Design.Widget.NavigationView(this);
+            var navigationView = new NavigationView(this);
             var menu = navigationView.Menu;
             if (OnPrepareSideMenu(menu))
             {

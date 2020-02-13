@@ -22,7 +22,8 @@ namespace Toolbox.Droid.Form.Cells
             var cell = LayoutInflater.From(context).Inflate(Resource.Layout.forms_cell_checkbox, null);
             var label = cell.FindViewById<TextView>(Resource.Id.label);
             _checkBox = cell.FindViewById<SwitchCompat>(Resource.Id.checkbox);
-
+            _checkBox.SetTextColor(AppearanceTextColor);
+            _checkBox.SetHighlightColor(AppearanceAccentColor);
             label.Text = _hint;
             _checkBox.Checked = _value;
             _checkBox.Enabled = Form.EditingEnabled;
@@ -49,7 +50,7 @@ namespace Toolbox.Droid.Form.Cells
             NotifyChanged(_value);
         }
 
-        protected virtual void OnEditableStatusChanged(object sender, bool isEditable)
+        protected override void OnEditableStatusChanged(object sender, bool isEditable)
         {
             _checkBox.Enabled = Form.EditingEnabled;
         }

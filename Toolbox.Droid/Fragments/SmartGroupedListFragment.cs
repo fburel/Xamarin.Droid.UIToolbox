@@ -11,23 +11,16 @@ namespace Toolbox.Droid.Fragments
 {
     internal interface IGroupAdapterBinder
     {
-        void OnSetSectionHeaderTitle(View cell, string title);
-
         View OnCreateHeaderViewCell(Context context);
     }
 
-    internal abstract class Adapter<T> : SmartGroupedListAdapter<T>
+    internal class Adapter<T> : SmartGroupedListAdapter<T>
     {
         private readonly IGroupAdapterBinder Binder;
 
-        protected Adapter(DataProvider provider, IGroupAdapterBinder binder) : base(provider)
+        internal Adapter(DataProvider provider, IGroupAdapterBinder binder) : base(provider)
         {
             Binder = binder;
-        }
-
-        public override void OnSetSectionHeaderTitle(View cell, string title)
-        {
-            Binder.OnSetSectionHeaderTitle(cell, title);
         }
 
         public override View OnCreateHeaderViewCell(Context context)
@@ -65,7 +58,7 @@ namespace Toolbox.Droid.Fragments
                 new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
             RefreshLayout.AddView(ListView);
 
-            adapter = new SmartGroupedListAdapter<T>(this);
+            adapter = new Adapter<T>(this, this);
 
             adapter.ItemSelected += OnItemSelected;
 
@@ -100,6 +93,16 @@ namespace Toolbox.Droid.Fragments
             await ForceRefresh();
         }
 
+        protected void ReloadData()
+        {
+            Activity.RunOnUiThread(adapter.NotifyDataSetChanged);
+        }
+
+        protected T GetItem(int position)
+        {
+            if (ListView.Adapter is Adapter<T> ladapter) return ladapter[position];
+            return default;
+        }
 
         #region Overrides & Defaults
 
@@ -120,11 +123,6 @@ namespace Toolbox.Droid.Fragments
         public abstract void Bind(ViewHolder viewHolde, T item);
 
         public abstract string SectionTitle(int i);
-
-        public virtual void OnSetSectionHeaderTitle(View cell, string title)
-        {
-            cell.FindViewById<TextView>(Android.Resource.Id.Text1).Text = title;
-        }
 
         public virtual View OnCreateHeaderViewCell(Context context)
         {

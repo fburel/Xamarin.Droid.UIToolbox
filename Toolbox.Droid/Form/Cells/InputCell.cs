@@ -1,6 +1,4 @@
-﻿using System;
-using Android.Content;
-using Android.Renderscripts;
+﻿using Android.Content;
 using Android.Support.Design.Widget;
 using Android.Text;
 using Android.Views;
@@ -10,12 +8,12 @@ namespace Toolbox.Droid.Form.Cells
 {
     public class InputCell : Cell
     {
-        
-        private InputTypes _inputType;
-        private string _hint;
+        private readonly string _hint;
+
+        private readonly InputTypes _inputType;
         private string _value;
 
-        private EditText Input;
+        private EditText _input;
 
         public InputCell(int tag, FormFragment form, string hint, string value, InputTypes inputType) : base(tag, form)
         {
@@ -26,18 +24,18 @@ namespace Toolbox.Droid.Form.Cells
 
         public override View GetView(Context context)
         {
-            Input = new EditText(context);
-            Input.InputType = _inputType;
-            Input.Hint = _hint;
-            Input.Text = _value;
-            
-            //editText.LayoutParameters = new TextInputLayout.LayoutParams(0, TextInputLayout.LayoutParams.MatchParent);
-            
-            var textInputLayout = new TextInputLayout(context);
-            textInputLayout.AddView(Input);
+            _input = new EditText(context);
+            _input.InputType = _inputType;
+            _input.Hint = _hint;
+            _input.Text = _value;
 
-            Input.TextChanged += OnTextChanged;
-            Input.Enabled = Form.EditingEnabled;
+            //editText.LayoutParameters = new TextInputLayout.LayoutParams(0, TextInputLayout.LayoutParams.MatchParent);
+
+            var textInputLayout = new TextInputLayout(context);
+            textInputLayout.AddView(_input);
+
+            _input.TextChanged += OnTextChanged;
+            _input.Enabled = Form.EditingEnabled;
             return textInputLayout;
         }
 
@@ -46,9 +44,10 @@ namespace Toolbox.Droid.Form.Cells
             _value = string.Concat(e.Text);
             NotifyChanged(_value);
         }
-        protected virtual void OnEditableStatusChanged(object sender, bool isEditable)
+
+        protected override void OnEditableStatusChanged(object sender, bool isEditable)
         {
-            Input.Enabled = Form.EditingEnabled;
+            _input.Enabled = Form.EditingEnabled;
         }
     }
 }
