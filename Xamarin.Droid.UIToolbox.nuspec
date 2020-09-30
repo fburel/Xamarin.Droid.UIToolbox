@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<dependency >
+<package >
   <metadata>
     <id>fr.f10-solutions.Toolbox.Droid</id>
     <version>2.0.1</version>
@@ -17,7 +17,7 @@
     
     <license type="expression">MIT</license>
 
-    <packages>
+    <dependencies>
         <group targetFramework="monoandroid10.0">
             <dependency id="Xamarin.AndroidX.Activity" version="1.1.0.2" />
           <dependency id="Xamarin.AndroidX.Annotation" version="1.1.0.6" />
@@ -69,4 +69,4 @@
     <!-- Android reference assemblies -->
     <file src="Xamarin.Droid.UIToolbox\bin\Release\Xamarin.Droid.UIToolbox.dll" target="lib\MonoAndroid10\Xamarin.Droid.UIToolbox.dll" />
   </files>
-</packages>
+</package>

@@ -7,3 +7,4 @@ Toolbox.Droid/obj
 # Build related
 tools/**
 !tools/packages.config
+*.nupkg
