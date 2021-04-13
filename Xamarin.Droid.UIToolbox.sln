@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Droid.UIToolbox", "Xamarin.Droid.UIToolbox\Xamarin.Droid.UIToolbox.csproj", "{1D5AC02D-2752-4023-A5EF-3005A2A361A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{220BC2D0-7889-4901-9234-E6EC0A38745D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{1D5AC02D-2752-4023-A5EF-3005A2A361A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D5AC02D-2752-4023-A5EF-3005A2A361A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D5AC02D-2752-4023-A5EF-3005A2A361A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{220BC2D0-7889-4901-9234-E6EC0A38745D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{220BC2D0-7889-4901-9234-E6EC0A38745D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{220BC2D0-7889-4901-9234-E6EC0A38745D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{220BC2D0-7889-4901-9234-E6EC0A38745D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

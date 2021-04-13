@@ -17,15 +17,6 @@ namespace Xamarin.Droid.UIToolbox.Fragments
 
         protected View EmptyView { get; set; }
 
-        protected bool RefreshEnabled
-        {
-            get => RefreshLayout?.Enabled ?? true;
-            set
-            {
-                if (RefreshLayout != null) RefreshLayout.Enabled = value;
-            }
-        }
-
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -94,8 +85,22 @@ namespace Xamarin.Droid.UIToolbox.Fragments
         public abstract void Bind(ViewHolder viewHolde, T item);
 
         protected abstract void OnItemSelected(object sender, T e);
+        
+        #endregion
 
-        protected abstract void RefreshDataSet(TaskCompletionSource<bool> completion);
+        #region PullToRefresh
+
+        protected virtual bool RefreshEnabled => false;
+
+        /// <summary>
+        /// Called by the pull to refresh trigger. This method gives you some times to perform an async task.
+        /// Once done, implementation should call the `completion.SetResult(true);`method
+        /// </summary>
+        /// <param name="completion">The completion task source</param>
+        protected virtual void RefreshDataSet(TaskCompletionSource<bool> completion)
+        {
+            completion.TrySetResult(true);
+        }
 
         #endregion
     }

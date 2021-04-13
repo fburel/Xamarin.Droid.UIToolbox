@@ -8,3 +8,4 @@ Toolbox.Droid/obj
 tools/**
 !tools/packages.config
 *.nupkg
+Demo/obj

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.Graphics.Drawables;
@@ -35,15 +36,15 @@ namespace Xamarin.Droid.UIToolbox.HUD
         public static Task ShowSuccess(Context context, string text, int duration)
         {
             var dialog = new Dialog(context);
-            dialog.Window.SetBackgroundDrawable(new ColorDrawable(global::Android.Graphics.Color.Transparent));
+            dialog.Window?.SetBackgroundDrawable(new ColorDrawable(global::Android.Graphics.Color.Transparent));
             dialog.SetContentView(Resource.Layout.HUDLayout);
             var frameLayout = dialog.FindViewById<FrameLayout>(Resource.Id.ContentFrameLayout);
             var textView = dialog.FindViewById<TextView>(Resource.Id.textViewStatus);
-            textView.Text = text;
+            if (textView != null) textView.Text = text;
 
             var imageView = new ImageView(context);
             imageView.SetImageResource(Resource.Drawable.ic_successstatus);
-            frameLayout.AddView(imageView,
+            frameLayout?.AddView(imageView,
                 new ActionMenuView.LayoutParams(ViewGroup.LayoutParams.MatchParent,
                     ViewGroup.LayoutParams.MatchParent));
 
@@ -53,17 +54,23 @@ namespace Xamarin.Droid.UIToolbox.HUD
             return tm;
         }
 
-        public static Task<T> ShowSpinner<T>(Context context, string text, Task<T> dismissTask, bool cancelable = false)
+        public interface IProgress
+        {
+            float Current { get; }
+            event EventHandler<float> Updated;
+
+        }
+        public static Task<T> ShowSpinner<T>(Context context, string text, Task<T> dismissTask, bool cancelable = false, IProgress progress = null)
         {
             var dialog = new Dialog(context);
-            dialog.Window.SetBackgroundDrawable(new ColorDrawable(global::Android.Graphics.Color.Transparent));
+            dialog.Window?.SetBackgroundDrawable(new ColorDrawable(global::Android.Graphics.Color.Transparent));
             dialog.SetContentView(Resource.Layout.HUDLayout);
 
             var frameLayout = dialog.FindViewById<FrameLayout>(Resource.Id.ContentFrameLayout);
 
 
             var textView = dialog.FindViewById<TextView>(Resource.Id.textViewStatus);
-            textView.Text = text;
+            if (textView != null) textView.Text = text;
 
             dialog.SetCancelable(cancelable);
 
@@ -76,10 +83,21 @@ namespace Xamarin.Droid.UIToolbox.HUD
 
 
             var pg = new ProgressBar(context);
-            pg.Indeterminate = true;
+            if(progress == null)
+             pg.Indeterminate = true;
+            else
+            {
+                pg.Indeterminate = false;
+                pg.Progress = (int) (100 * progress.Current);
+                pg.Min = 0;
+                pg.Max = 100;
+                progress.Updated += (sender, f) =>
+                {
+                    pg.Progress = (int) (100 * f);
+                };
+            }
 
-
-            frameLayout.AddView(pg,
+            frameLayout?.AddView(pg,
                 new ActionMenuView.LayoutParams(ViewGroup.LayoutParams.MatchParent,
                     ViewGroup.LayoutParams.MatchParent));
 
