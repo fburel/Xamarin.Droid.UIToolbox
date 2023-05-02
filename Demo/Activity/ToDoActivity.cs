@@ -12,14 +12,14 @@ namespace Demo
     /// The purpose of the activity is to switch from one fragment to another.
     /// </summary>
     [Activity(Label = "Demo", MainLauncher = true)]
-    public class ToDoActivity : PushPopActivity
+    public class ToDoActivity : PushPopActivity, ToDoListFragment.ITodoSelectedHandler
     {
         protected override Type GetRootFragmentClass => typeof(ToDoListFragment);
 
-        //public void TodoSelected(object sender, Todo item)
-        //{
-        //    Push<TaskDetailFragment>();
-        //}
+        public void TodoSelected(object sender, Todo item)
+        {
+            Push<TaskDetailFragment>();
+        }
     }
     
 }

@@ -6,7 +6,7 @@
     android:padding="11dp"
     android:id="@+id/cell">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/label"
         android:layout_height="wrap_content"
         android:layout_width="0dp"
@@ -16,7 +16,7 @@
         android:textColor="?android:textColorPrimary"/>
 
 
-    <android.support.v7.widget.SwitchCompat
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

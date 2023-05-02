@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Android.Views;
 using Android.Widget;
 using Demo.ViewModel;
+using Splat;
 using Xamarin.Droid.UIToolbox.Fragments;
 using Xamarin.Droid.UIToolbox.List;
 
@@ -30,7 +32,6 @@ namespace Demo.Fragments
         public override void RegisterCell(View cell, ViewHolder vh)
         {
             vh.Views["Text1"] = cell.FindViewById(Android.Resource.Id.Text1);
-            vh.Views["Text2"] = cell.FindViewById(Android.Resource.Id.Text2);
         }
         
         /// [4] This method is called when a cell is ready to render a member of the list
@@ -39,7 +40,12 @@ namespace Demo.Fragments
         public override void Bind(ViewHolder viewHolder, Todo item)
         {
             viewHolder.getView<TextView>("Text1").Text = item.Description;
-            viewHolder.getView<TextView>("Text2").Text = item.Status.ToString();
+            viewHolder.getView<TextView>("Text1").SetTextColor(
+                item.Status == Todo.TaskStatus.Open ? SplatColor.Aqua.ToNative() :
+                item.Status == Todo.TaskStatus.InProgress ? SplatColor.Lime.ToNative() :
+                item.Status == Todo.TaskStatus.Done ? SplatColor.LimeGreen.ToNative() :
+                SplatColor.DarkRed.ToNative());
+
         }
 
         
@@ -47,11 +53,28 @@ namespace Demo.Fragments
         /// Here, for simplicity purpose we send a notification to the parent activity so it can trigger a navigation event, and set store the selected item in the viewModel
         protected override void OnItemSelected(object sender, Todo e)
         {
-            //ViewModel.SetEditedTodo(e);
-            //((ITodoSelectedHandler)Activity)?.TodoSelected(this, e);
+            ViewModel.SetEditedTodo(e);
+            ((ITodoSelectedHandler)Activity)?.TodoSelected(this, e);
+        }
+
+        ///  Optional : override this method to refresh your dataset in pullToRefresh
+        protected override void RefreshDataSet(TaskCompletionSource<bool> completion)
+        {
+            /*
+             * Update your dataset or call on your viewModel update method.
+             * When done, call the base method
+             */
+            base.RefreshDataSet(completion);
         }
 
         #endregion
-       
+
+        #region other overrides
+
+        // Define the title of the screen
+        protected override string Title => "Todos";
+
+        #endregion
+
     }
 }

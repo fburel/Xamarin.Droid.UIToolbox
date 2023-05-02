@@ -6,7 +6,7 @@
     android:padding="11dp"
     android:id="@+id/cell">
 
-    <android.support.v7.widget.AppCompatTextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/hintTextView"
         android:layout_height="wrap_content"
         android:layout_width="0dp"
@@ -15,7 +15,7 @@
         android:textSize="18sp"
         />
 
-    <android.support.v7.widget.AppCompatTextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/valueTextView"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"

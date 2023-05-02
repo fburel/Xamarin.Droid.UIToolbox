@@ -11,7 +11,7 @@
                   android:layout_height="200dp"
                   android:padding="11dp">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/hintTextView"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
@@ -20,7 +20,7 @@
                 android:textSize="18sp"
                 android:textColor="?android:textColorPrimary"/>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/valueTextView"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"

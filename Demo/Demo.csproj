@@ -262,6 +262,13 @@
         <Reference Include="Xamarin.KotlinX.Coroutines.Core.Jvm, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
           <HintPath>..\packages\Xamarin.KotlinX.Coroutines.Core.Jvm.1.6.4.3\lib\monoandroid12.0\Xamarin.KotlinX.Coroutines.Core.Jvm.dll</HintPath>
         </Reference>
+        <Reference Include="Splat">
+          <HintPath>..\packages\Splat.14.6.8\lib\netstandard2.0\Splat.dll</HintPath>
+        </Reference>
+        <Reference Include="Splat.Drawing">
+          <HintPath>..\packages\Splat.Drawing.14.6.8\lib\monoandroid13.0\Splat.Drawing.dll</HintPath>
+        </Reference>
+        <Reference Include="System.Runtime.Serialization" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Activity\ToDoActivity.cs" />
@@ -287,6 +294,9 @@
       <Folder Include="Resources\layout\" />
     </ItemGroup>
     <ItemGroup>
+      <AndroidResource Include="Resources\drawable-nodpi\role_admin.png" />
+      <AndroidResource Include="Resources\drawable-nodpi\role_guest.png" />
+      <AndroidResource Include="Resources\drawable-nodpi\role_tenant.png" />
       <AndroidResource Include="Resources\values\string.xml" />
       <AndroidResource Include="Resources\values\Styles.xml" />
     </ItemGroup>
