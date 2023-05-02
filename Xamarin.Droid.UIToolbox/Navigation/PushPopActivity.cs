@@ -91,6 +91,7 @@ namespace Xamarin.Droid.UIToolbox.Navigation
                 .Commit();
         }
 
+        [Obsolete("deprecated")]
         public override void OnBackPressed()
         {
             if (_fragments.Count > 1)
@@ -99,6 +100,7 @@ namespace Xamarin.Droid.UIToolbox.Navigation
                 onActivityBack();
         }
 
+        [Obsolete("Obsolete")]
         protected virtual void onActivityBack()
         {
             base.OnBackPressed();

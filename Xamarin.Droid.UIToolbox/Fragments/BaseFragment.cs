@@ -26,7 +26,8 @@ namespace Xamarin.Droid.UIToolbox.Fragments
             
             if (RightMenuButton == null) return;
             
-            menu.Add((int) Menu.None, RightMenuButton.Tag, (int) Menu.None, (ICharSequence) new Java.Lang.String(RightMenuButton.Title))
+            
+            menu.Add((int)  0, RightMenuButton.Tag, (int) 0, (ICharSequence) new Java.Lang.String(RightMenuButton.Title))
                 .SetIcon(RightMenuButton.Icon)
                 .SetShowAsAction(ShowAsAction.Always);
         }

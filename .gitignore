@@ -9,3 +9,7 @@ tools/**
 !tools/packages.config
 *.nupkg
 Demo/obj
+Demo/bin
+.vscode
+Xamarin.Droid.UIToolbox/obj
+Xamarin.Droid.UIToolbox/bin

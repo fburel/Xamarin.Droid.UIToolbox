@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Demo</string>
+    
+    <string name="StatusOpen">Open</string>
+    <string name="StatusProgress">InProgress</string>
+    <string name="StatusHold">On Hold</string>
+    <string name="StatusDone">Done</string>
+    
+</resources>
