@@ -37,7 +37,6 @@ namespace Demo.ViewModel
         
         public static ToDoViewModel Instance => lazy.Value;
         
-
         private ToDoViewModel()
         {
             _todos.Add(new Todo()

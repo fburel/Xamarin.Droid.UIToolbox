@@ -34,15 +34,27 @@ namespace Xamarin.Droid.UIToolbox.Fragments
 
             RefreshLayout.AddView(ListView);
 
-            _adapter = new List.SmartListAdapter<T>(this);
-
-            _adapter.ItemSelected += OnItemSelected;
-
-            ListView.Adapter = _adapter;
-
             RefreshLayout.Refresh += OnRefresh;
 
             return RefreshLayout;
+        }
+
+        public override void OnViewCreated(View view, Bundle savedInstanceState)
+        {
+            base.OnViewCreated(view, savedInstanceState);
+            try
+            {
+                _adapter = new List.SmartListAdapter<T>(this);
+                
+                _adapter.ItemSelected += OnItemSelected;
+                
+                ListView.Adapter = _adapter;
+            }
+            catch (Exception e)
+            {
+                
+            }
+           
         }
 
         protected void ReloadData()
