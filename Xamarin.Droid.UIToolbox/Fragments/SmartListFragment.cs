@@ -6,6 +6,7 @@ using Android.Views;
 using Android.Widget;
 using AndroidX.SwipeRefreshLayout.Widget;
 using Xamarin.Droid.UIToolbox.List;
+using Debug = System.Diagnostics.Debug;
 
 namespace Xamarin.Droid.UIToolbox.Fragments
 {
@@ -20,13 +21,15 @@ namespace Xamarin.Droid.UIToolbox.Fragments
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            RefreshLayout = new SwipeRefreshLayout(Activity)
+            Debug.Assert(inflater.Context != null, "inflater.Context != null");
+            
+            RefreshLayout = new SwipeRefreshLayout(inflater.Context)
             {
                 LayoutParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent,
                     ViewGroup.LayoutParams.MatchParent)
             };
 
-            ListView = new ListView(Activity)
+            ListView = new ListView(inflater.Context)
             {
                 LayoutParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent,
                     ViewGroup.LayoutParams.MatchParent)
@@ -52,9 +55,8 @@ namespace Xamarin.Droid.UIToolbox.Fragments
             }
             catch (Exception e)
             {
-                
+                // ignored
             }
-           
         }
 
         protected void ReloadData()
