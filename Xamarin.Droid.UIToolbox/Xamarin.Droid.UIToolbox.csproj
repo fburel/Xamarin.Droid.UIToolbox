@@ -442,6 +442,12 @@
         <Generator>MSBuild:UpdateGeneratedFiles</Generator>
       </AndroidResource>
     </ItemGroup>
+    <ItemGroup>
+      <Content Include="..\toolbox4droid.nuspec">
+        <Link>toolbox4droid.nuspec</Link>
+      </Content>
+      <Content Include="README.md" />
+    </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
     <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
       <PropertyGroup>
