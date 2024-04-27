@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Android.Content;
+using Android.Graphics.Drawables;
+using Android.Icu.Text;
 using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
@@ -38,12 +40,25 @@ namespace Xamarin.Droid.UIToolbox.Views
             public readonly int IconRes;
             public readonly int Tag;
             public readonly int TitleRes;
+            
+            
+            public readonly bool UseRes = true;
+            public readonly string Title;
+            public readonly Drawable Icon;
+
 
             public ActivityItem(int tag, int tileRes, int iconRes)
             {
                 Tag = tag;
                 TitleRes = tileRes;
                 IconRes = iconRes;
+            }
+            public ActivityItem(int tag, string title, Drawable icon)
+            {
+                UseRes = false;
+                Tag = tag;
+                Title = title;
+                Icon = icon;
             }
         }
 
@@ -59,8 +74,16 @@ namespace Xamarin.Droid.UIToolbox.Views
 
         public void Bind(ViewHolder vh, ActivityItem item)
         {
-            ((ImageView) vh.Views["imageView"]).SetImageResource(item.IconRes);
-            ((TextView) vh.Views["textView"]).SetText(item.TitleRes);
+            if (item.UseRes)
+            {
+                ((ImageView) vh.Views["imageView"]).SetImageResource(item.IconRes);
+                ((TextView) vh.Views["textView"]).SetText(item.TitleRes);
+            }
+            else
+            {
+                ((ImageView) vh.Views["imageView"]).SetImageDrawable(item.Icon);
+                ((TextView) vh.Views["textView"]).SetText(item.Title, TextView.BufferType.Normal);
+            }
         }
 
         public int ViewTypeCount => 1;
