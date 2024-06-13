@@ -12,6 +12,7 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_gravity="center_vertical"
+        android:textIsSelectable="true"
         android:textSize="18sp"
         />
 

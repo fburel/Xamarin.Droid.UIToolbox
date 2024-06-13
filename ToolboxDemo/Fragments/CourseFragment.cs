@@ -5,6 +5,7 @@ using Java.Lang;
 using Java.Security;
 using Xamarin.Droid.UIToolbox.Fragments;
 using Xamarin.Droid.UIToolbox.List;
+using Xamarin.Droid.UIToolbox.Views;
 
 namespace ToolboxDemo.Fragments
 {
@@ -79,7 +80,15 @@ namespace ToolboxDemo.Fragments
 
         protected override void OnItemSelected(object sender, Course e)
         {
+            var dialog = new ActivityDialog(this.Activity, new List<ActivityDialog.ActivityItem>()
+            {
+                new ActivityDialog.ActivityItem(1, "IcDelete", Android.Resource.Drawable.IcDelete),
+                new ActivityDialog.ActivityItem(2, "IcSecure", Android.Resource.Drawable.IcSecure),
+                new ActivityDialog.ActivityItem(3, "IcLockLock", Android.Resource.Drawable.IcLockLock),
+                new ActivityDialog.ActivityItem(4, "IcMediaPlay", Android.Resource.Drawable.IcMediaPlay)
+            }, "title is set", 2);
             
+            dialog.Show();
         }
 
        

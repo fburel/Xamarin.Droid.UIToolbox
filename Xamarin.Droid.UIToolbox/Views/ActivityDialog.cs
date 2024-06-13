@@ -40,12 +40,7 @@ namespace Xamarin.Droid.UIToolbox.Views
             public readonly int IconRes;
             public readonly int Tag;
             public readonly int TitleRes;
-            
-            
-            public readonly bool UseRes = true;
             public readonly string Title;
-            public readonly Drawable Icon;
-
 
             public ActivityItem(int tag, int tileRes, int iconRes)
             {
@@ -53,12 +48,12 @@ namespace Xamarin.Droid.UIToolbox.Views
                 TitleRes = tileRes;
                 IconRes = iconRes;
             }
-            public ActivityItem(int tag, string title, Drawable icon)
+            public ActivityItem(int tag, string title, int iconRes)
             {
-                UseRes = false;
                 Tag = tag;
+                TitleRes = 0;
                 Title = title;
-                Icon = icon;
+                IconRes = iconRes;
             }
         }
 
@@ -74,14 +69,14 @@ namespace Xamarin.Droid.UIToolbox.Views
 
         public void Bind(ViewHolder vh, ActivityItem item)
         {
-            if (item.UseRes)
+            ((ImageView) vh.Views["imageView"]).SetImageResource(item.IconRes);
+
+            if (item.TitleRes != 0)
             {
-                ((ImageView) vh.Views["imageView"]).SetImageResource(item.IconRes);
                 ((TextView) vh.Views["textView"]).SetText(item.TitleRes);
             }
             else
             {
-                ((ImageView) vh.Views["imageView"]).SetImageDrawable(item.Icon);
                 ((TextView) vh.Views["textView"]).SetText(item.Title, TextView.BufferType.Normal);
             }
         }
