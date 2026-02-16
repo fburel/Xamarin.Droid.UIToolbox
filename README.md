@@ -156,5 +156,9 @@ You can also use Fastlane to automate the build and publish process.
    ```bash
    bundle exec fastlane publish
    ```
-   *Note: You can set the `NUGET_API_KEY` environment variable to authenticate with NuGet.org.*
+   *IMPORTANT: You **must** set the `NUGET_API_KEY` environment variable to authenticate with NuGet.org:*
+   ```bash
+   export NUGET_API_KEY=your_api_key_here
+   bundle exec fastlane publish
+   ```
 
