@@ -19,12 +19,12 @@ namespace Xamarin.Droid.UIToolbox.ViewPager
 
         public override int Count => Items.Count;
 
-        public override bool IsViewFromObject(View view, Object objectValue)
+        public override bool IsViewFromObject(View view, Java.Lang.Object objectValue)
         {
             return view == objectValue;
         }
 
-        public override Object InstantiateItem(ViewGroup collection, int position)
+        public override Java.Lang.Object InstantiateItem(ViewGroup collection, int position)
         {
             var layout = OnCreateLayout(collection, Items[position]);
             collection.AddView(layout);
@@ -32,7 +32,7 @@ namespace Xamarin.Droid.UIToolbox.ViewPager
         }
 
 
-        public override void DestroyItem(ViewGroup collection, int position, Object view)
+        public override void DestroyItem(ViewGroup collection, int position, Java.Lang.Object view)
         {
             collection.RemoveView(view as View);
         }

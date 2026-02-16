@@ -69,17 +69,16 @@ namespace Xamarin.Droid.UIToolbox.Navigation
             }
         }
 
-        /* Called whenever we call invalidateOptionsMenu() */
-        public override bool OnPrepareOptionsMenu(IMenu menu)
+        public override bool OnPrepareOptionsMenu(IMenu? menu)
         {
             // If the nav drawer is open, hide action items related to the content view
             if (_drawerToggle != null && _drawer.IsDrawerOpen((int) GravityFlags.Start)) // 0x00800003 === Gravity.START
-                menu.Clear();
+                menu?.Clear();
 
             return base.OnPrepareOptionsMenu(menu);
         }
 
-        protected override void OnPostCreate(Bundle savedInstanceState)
+        protected override void OnPostCreate(Bundle? savedInstanceState)
         {
             base.OnPostCreate(savedInstanceState);
             // Sync the toggle state after onRestoreInstanceState has occurred.

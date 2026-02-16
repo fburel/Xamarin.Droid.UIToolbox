@@ -97,7 +97,7 @@ namespace Xamarin.Droid.UIToolbox.List
             return SectionHeadersPositions.Contains(position) ? 0 : 1;
         }
 
-        public override View GetView(int position, View convertView, ViewGroup parent)
+        public override View GetView(int position, View? convertView, ViewGroup? parent)
         {
             var cell = convertView;
 

@@ -78,7 +78,7 @@ namespace Xamarin.Droid.UIToolbox.List
             return _viewTypes.IndexOf(_provider.GetCellResource(position));
         }
 
-        public override View GetView(int position, View convertView, ViewGroup parent)
+        public override View GetView(int position, View? convertView, ViewGroup? parent)
         {
             var cell = convertView;
 

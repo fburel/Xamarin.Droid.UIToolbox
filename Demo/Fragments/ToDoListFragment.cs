@@ -5,6 +5,7 @@ using Android.Views;
 using Android.Widget;
 using Demo.ViewModel;
 using Splat;
+using SplatColor = System.Drawing.Color;
 using Xamarin.Droid.UIToolbox.Fragments;
 using Xamarin.Droid.UIToolbox.List;
 
@@ -41,10 +42,10 @@ namespace Demo.Fragments
         {
             viewHolder.getView<TextView>("Text1").Text = item.Description;
             viewHolder.getView<TextView>("Text1").SetTextColor(
-                item.Status == Todo.TaskStatus.Open ? SplatColor.Aqua.ToNative() :
-                item.Status == Todo.TaskStatus.InProgress ? SplatColor.Lime.ToNative() :
-                item.Status == Todo.TaskStatus.Done ? SplatColor.LimeGreen.ToNative() :
-                SplatColor.DarkRed.ToNative());
+                item.Status == Todo.TaskStatus.Open ? Android.Graphics.Color.Aqua :
+                item.Status == Todo.TaskStatus.InProgress ? Android.Graphics.Color.Lime :
+                item.Status == Todo.TaskStatus.Done ? Android.Graphics.Color.LimeGreen :
+                Android.Graphics.Color.DarkRed);
 
         }
 

@@ -48,7 +48,7 @@ namespace Xamarin.Droid.UIToolbox.Fragments
             }
         }
 
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle? savedInstanceState)
         {
             Debug.Assert(inflater.Context != null, "inflater.Context != null");
             

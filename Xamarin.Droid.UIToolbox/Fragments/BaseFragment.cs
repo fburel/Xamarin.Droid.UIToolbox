@@ -7,7 +7,7 @@ using Exception = Java.Lang.Exception;
 
 namespace Xamarin.Droid.UIToolbox.Fragments
 {
-    public class BaseFragment : Fragment
+    public class BaseFragment : AndroidX.Fragment.App.Fragment
     {
         public static int MatchParent = ViewGroup.LayoutParams.MatchParent;
         protected int WrapContent = ViewGroup.LayoutParams.WrapContent;
@@ -74,6 +74,12 @@ namespace Xamarin.Droid.UIToolbox.Fragments
             }
         }
 
+
+        public override void OnResume()
+        {
+            base.OnResume();
+            if (Title != null) Activity.Title = Title;
+        }
 
         public override void OnStart()
         {

@@ -46,7 +46,7 @@ namespace Xamarin.Droid.UIToolbox.Form
 
         public event EventHandler<bool> EditableStatusChanged;
 
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle? savedInstanceState)
         {
             _scrollview = new ScrollView(inflater.Context);
             _scrollview.LayoutParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent,

@@ -11,7 +11,7 @@ using Xamarin.Droid.UIToolbox.List;
 
 namespace Xamarin.Droid.UIToolbox.Views
 {
-    public class ActivityDialog : AlertDialog, SmartListAdapter<ActivityDialog.ActivityItem>.DataProvider
+    public class ActivityDialog : AndroidX.AppCompat.App.AlertDialog, SmartListAdapter<ActivityDialog.ActivityItem>.DataProvider
     {
         public SmartListAdapter<ActivityItem> Adapter;
 

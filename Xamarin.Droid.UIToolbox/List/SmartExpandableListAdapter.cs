@@ -19,9 +19,9 @@ namespace Xamarin.Droid.UIToolbox.List
         public override bool HasStableIds => false;
 
 
-        public override Object GetChild(int groupPosition, int childPosition)
+        public override Java.Lang.Object GetChild(int groupPosition, int childPosition)
         {
-            return groupPosition * 1000 + childPosition;
+            return (Java.Lang.Integer) (groupPosition * 1000 + childPosition);
         }
 
         public override long GetChildId(int groupPosition, int childPosition)
@@ -34,9 +34,9 @@ namespace Xamarin.Droid.UIToolbox.List
             return _provider.RowsInSection(groupPosition);
         }
 
-        public override Object GetGroup(int groupPosition)
+        public override Java.Lang.Object GetGroup(int groupPosition)
         {
-            return groupPosition * 1000;
+            return (Java.Lang.Integer) (groupPosition * 1000);
         }
 
         public override long GetGroupId(int groupPosition)
@@ -49,7 +49,7 @@ namespace Xamarin.Droid.UIToolbox.List
             return _provider.IsItemSelectable(groupPosition, childPosition);
         }
 
-        public override View GetGroupView(int groupPosition, bool isExpanded, View convertView, ViewGroup parent)
+        public override View GetGroupView(int groupPosition, bool isExpanded, View? convertView, ViewGroup? parent)
         {
             var cell = convertView;
 
@@ -74,8 +74,8 @@ namespace Xamarin.Droid.UIToolbox.List
             return cell;
         }
 
-        public override View GetChildView(int groupPosition, int childPosition, bool isLastChild, View convertView,
-            ViewGroup parent)
+        public override View GetChildView(int groupPosition, int childPosition, bool isLastChild, View? convertView,
+            ViewGroup? parent)
         {
             var cell = convertView;
 

@@ -5,7 +5,7 @@ namespace Xamarin.Droid.UIToolbox.Navigation
 {
     public class BaseActivity : AppCompatActivity
     {
-        protected override void OnCreate(Bundle savedInstanceState)
+        protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 

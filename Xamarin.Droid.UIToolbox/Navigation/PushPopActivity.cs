@@ -55,6 +55,8 @@ namespace Xamarin.Droid.UIToolbox.Navigation
                 .Commit();
             _fragments.Add(f);
 
+            UpdateTitleFromFragment(f);
+
             return f;
         }
 
@@ -79,6 +81,8 @@ namespace Xamarin.Droid.UIToolbox.Navigation
                 .Replace(Resource.Id.DrawerActivityFragmentLayout, f)
                 .Commit();
             _fragments.Add(f);
+
+            UpdateTitleFromFragment(f);
         }
 
         public void Pop()
@@ -89,6 +93,28 @@ namespace Xamarin.Droid.UIToolbox.Navigation
                 .SetCustomAnimations(Resource.Animation.PopEntry, Resource.Animation.PopExit)
                 .Replace(Resource.Id.DrawerActivityFragmentLayout, previous)
                 .Commit();
+
+            UpdateTitleFromFragment(previous);
+        }
+
+        private void UpdateTitleFromFragment(BaseFragment f)
+        {
+            if (f != null)
+            {
+                var title = f.GetType().GetProperty("Title",
+                        System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic |
+                        System.Reflection.BindingFlags.Public)
+                    ?.GetValue(f) as string;
+
+                if (!string.IsNullOrEmpty(title))
+                {
+                    Title = title;
+                    if (SupportActionBar != null)
+                    {
+                        SupportActionBar.Title = title;
+                    }
+                }
+            }
         }
 
         [Obsolete("deprecated")]

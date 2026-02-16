@@ -17,17 +17,23 @@ namespace Xamarin.Droid.UIToolbox.Navigation.DrawerToogle
             _drawerTitle = drawerTitle;
         }
 
-        public override void OnDrawerClosed(View drawerView)
+        public override void OnDrawerClosed(View? drawerView)
         {
             base.OnDrawerClosed(drawerView);
-            _activity.SupportActionBar.Title = _activity.Title; // Change the title
+            
+            if (_activity.SupportActionBar != null)
+                _activity.SupportActionBar.Title = _activity.Title; // Change the title
+            
             _activity.InvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
         }
 
-        public override void OnDrawerOpened(View drawerView)
+        public override void OnDrawerOpened(View? drawerView)
         {
             base.OnDrawerOpened(drawerView);
-            _activity.SupportActionBar.Title = _drawerTitle;
+            
+            if (_activity.SupportActionBar != null)
+                _activity.SupportActionBar.Title = _drawerTitle;
+            
             _activity.InvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
         }
     }

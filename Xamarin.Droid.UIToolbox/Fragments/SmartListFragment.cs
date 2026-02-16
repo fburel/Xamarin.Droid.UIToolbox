@@ -19,7 +19,7 @@ namespace Xamarin.Droid.UIToolbox.Fragments
         protected View EmptyView { get; set; }
 
 
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle? savedInstanceState)
         {
             Debug.Assert(inflater.Context != null, "inflater.Context != null");
             
@@ -42,7 +42,7 @@ namespace Xamarin.Droid.UIToolbox.Fragments
             return RefreshLayout;
         }
 
-        public override void OnViewCreated(View view, Bundle savedInstanceState)
+        public override void OnViewCreated(View view, Bundle? savedInstanceState)
         {
             base.OnViewCreated(view, savedInstanceState);
             try
