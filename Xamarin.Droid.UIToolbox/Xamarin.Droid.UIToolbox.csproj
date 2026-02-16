@@ -25,5 +25,8 @@
     <Content Include="..\README.md">
       <Link>README.md</Link>
     </Content>
+    <Content Include="..\toolbox4droid.nuspec">
+      <Link>toolbox4droid.nuspec</Link>
+    </Content>
   </ItemGroup>
 </Project>
