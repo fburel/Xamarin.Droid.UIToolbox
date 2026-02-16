@@ -16,3 +16,5 @@ Xamarin.Droid.UIToolbox/bin
 ToolboxDemo/obj
 ToolboxDemo/bin
 Gemfile.lock
+fastlane/README.md
+fastlane/report.xml
