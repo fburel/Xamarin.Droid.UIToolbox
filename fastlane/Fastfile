@@ -3,23 +3,26 @@ default_platform(:android)
 platform :android do
   desc "Build and publish the NuGet package"
   lane :publish do
-    # 1. Build the project in Release mode
+    # 1. Cleanup old packages to avoid confusion
+    sh("cd .. && rm -f *.nupkg")
+
+    # 2. Build the project in Release mode
     sh("cd .. && dotnet build -c Release Xamarin.Droid.UIToolbox/Xamarin.Droid.UIToolbox.csproj")
 
-    # 2. Pack the NuGet package
+    # 3. Pack the NuGet package
     sh("cd .. && nuget pack toolbox4droid.nuspec")
 
-    # 3. Push to NuGet.org
+    # 4. Push to NuGet.org
     # Note: Ensure NUGET_API_KEY environment variable is set
     api_key = ENV["NUGET_API_KEY"]
     if api_key
-      sh("cd .. && dotnet nuget push *.nupkg --api-key #{api_key} --source https://api.nuget.org/v3/index.json")
+      sh("cd .. && dotnet nuget push *.nupkg --api-key #{api_key} --source https://api.nuget.org/v3/index.json --skip-duplicate")
     else
       UI.important("NUGET_API_KEY not found in environment. Attempting push without explicit ApiKey (relying on local config).")
-      sh("cd .. && dotnet nuget push *.nupkg --source https://api.nuget.org/v3/index.json")
+      sh("cd .. && dotnet nuget push *.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate")
     end
 
-    # 4. Cleanup
-    sh("cd .. && rm -rf *.nupkg")
+    # 5. Cleanup
+    sh("cd .. && rm -f *.nupkg")
   end
 end
